@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/michaelperrin/miam.js",
   "author": "Michaël Perrin <contact@michaelperrin.fr>",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=14.0"
+  }
 }
