@@ -6,8 +6,8 @@ const url = 'https://www.quitoque.fr/recettes/enchiladas-au-boeuf-et-au-parmesan
 axios.get(url)
   .then((html) => {
     const parser = new RecipeParser(html.data)
-    const title = parser.getTitle();
-    console.log(title);
+    const data = parser.getData();
+    console.log(data);
   })
   .catch(function (err) {
     console.log(err);
