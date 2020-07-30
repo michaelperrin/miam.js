@@ -10,11 +10,15 @@
     "node": ">=14.0"
   },
   "scripts": {
-    "miam": "node index.js"
+    "miam": "node index.js",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "puppeteer": "^3.0.4"
+  },
+  "devDependencies": {
+    "jest": "^26.2.1"
   }
 }
