@@ -1,15 +1,17 @@
-import axios from 'axios';
+import RecipeListParser from './src/adapter/quitoque/RecipeListParser.js';
 import RecipeParser from './src/adapter/quitoque/RecipeParser.js';
 
-const url = 'https://www.quitoque.fr/recettes/enchiladas-au-boeuf-et-au-parmesan/2020-21';
+const parser = new RecipeListParser();
 
-axios.get(url)
-  .then((html) => {
-    const parser = new RecipeParser(html.data)
-    const data = parser.getData();
-    console.log(data);
-  })
-  .catch(function (err) {
-    console.log(err);
-    //handle error
+const fetchRecipes = async () => {
+  let urls = await parser.getUrls();
+
+  urls.forEach(async url => {
+    const parser = new RecipeParser();
+    const recipeData = await parser.getDataFromUrl(url);
+
+    console.log(recipeData);
   });
+}
+
+fetchRecipes();
