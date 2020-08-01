@@ -22,3 +22,4 @@ This Node project uses:
 
 - Nice handling of errors (notifications, etc.).
 - Required fields vs optional fields.
+- Update to NPM version of Cheerio when they release version 1.0.0
