@@ -19,6 +19,9 @@
     "puppeteer": "^3.0.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "babel-jest": "^26.2.1",
     "jest": "^26.2.1"
   }
 }
