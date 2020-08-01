@@ -21,6 +21,7 @@ class RecipeParser {
     return {
       title: this.getTitle(dom),
       ingredients: this.getIngredients(dom),
+      steps: this.getSteps(dom),
     };
   }
 
@@ -49,6 +50,32 @@ class RecipeParser {
     });
 
     return ingredients;
+  }
+
+  getSteps(dom) {
+    const steps = [];
+
+    const instructions = dom('.recipe__instructions .recipe__instruction');
+
+    instructions.each((i, instruction) => {
+      const instructionDom = dom(instruction);
+
+      let title = instructionDom.contents().slice(0).eq(0).text().trim()
+      let description = dom.html(instructionDom.contents().slice(1))
+        .replace('<br>', "\n")
+        .trim()
+        .replace('<br>', "\n");
+
+      if (instructionDom.hasClass('last')) {
+        // There is no title for last step
+        description = title;
+        title = null;
+      }
+
+      steps.push({ title, description });
+    });
+
+    return steps;
   }
 
   getTextForNode(dom, nodeWithText) {
