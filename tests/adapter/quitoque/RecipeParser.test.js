@@ -54,4 +54,35 @@ describe('Recipe parser', () => {
 
     expect(recipeData.ingredients).toEqual(expectedIngredients);
   });
+
+  it('extracts cooking steps', async () => {
+    const steps = [
+      {
+        title: "Avant de commencer",
+        description: "Préchauffez votre four à 220°C.\nDeuxième ligne.",
+      },
+      {
+        title: "Les courgettes",
+        description: "Coupez les extrémités des courgettes.",
+      },
+      {
+        title: "La béchamel",
+        description: "Astuce : Réalisez votre béchamel",
+      },
+      {
+        title: "Le gratin de courgettes au jambon",
+        description: "Une fois les courgettes cuites, sortez-les du four et passez le four sur grill (250°C).",
+      },
+      {
+        title: "La salade",
+        description: "Coupez les tomates en dés.",
+      },
+      {
+        title: null,
+        description: "Dégustez sans attendre !",
+      },
+    ];
+
+    expect(recipeData.steps).toEqual(steps);
+  });
 });
