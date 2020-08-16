@@ -1,9 +1,4 @@
-// import RecipeParser from '../../../src/adapter/quitoque/RecipeParser';
-import RecipeParser from '../../../src/adapter/quitoque/RecipeParser.js';
-import axios from 'axios';
-import fs from 'fs';
-
-// const { default: RecipeParser } = require("../../../src/adapter/quitoque/RecipeParser");
+import RecipeParser from '../../../src/adapter/quitoque/RecipeParser';
 
 describe('Recipe parser', () => {
   const parser = new RecipeParser();
