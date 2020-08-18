@@ -16,7 +16,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "cheerio": "https://github.com/cheeriojs/cheerio.git#1.0.0",
-    "puppeteer": "^3.0.4"
+    "puppeteer": "^3.0.4",
+    "slugify": "^1.4.5"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",

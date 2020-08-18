@@ -1,13 +1,17 @@
 import axios from 'axios';
 import cheerio from 'cheerio';
 import fs from 'fs';
+import slugify from 'slugify';
 
 class RecipeParser {
   async getDataFromUrl(url) {
     const html = await axios.get(url);
     const dom = cheerio.load(html.data);
 
-    return this.getData(dom);
+    return {
+      url,
+      ...this.getData(dom),
+    };
   }
 
   getDataFromFile(file) {
@@ -18,8 +22,11 @@ class RecipeParser {
   }
 
   getData(dom) {
+    const title = this.getTitle(dom);
+
     return {
-      title: this.getTitle(dom),
+      slug: slugify(title, { lower: true }),
+      title,
       ingredients: this.getIngredients(dom),
       steps: this.getSteps(dom),
       pictures: this.getPictures(dom),
@@ -40,14 +47,24 @@ class RecipeParser {
     articles.each((i, article) => {
       const articleDom = dom(article);
 
-      ingredients.push({
-        number: articleDom.find('.article__label .text-primary').text().trim(),
-        name: this.getTextForNode(
-          dom,
-          articleDom.find('.article__label')
-        ),
-        quantity: articleDom.find('.article__quantity').text().trim().replace(/^\(/, '').replace(/\)$/, ''),
-      });
+      const name = this.getTextForNode(
+        dom,
+        articleDom.find('.article__label')
+      );
+      const quantity = articleDom.find('.article__quantity').text().trim().replace(/^\(/, '').replace(/\)$/, '');
+      const number = articleDom.find('.article__label .text-primary').text().trim();
+
+      const ingredient = { name };
+
+      if (quantity !== '') {
+        ingredient.quantity = quantity;
+      }
+
+      if (number !== '') {
+        ingredient.number = number;
+      }
+
+      ingredients.push(ingredient);
     });
 
     return ingredients;
