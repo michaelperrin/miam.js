@@ -11,6 +11,10 @@ Run project
 
     yarn run miam
 
+Run tests:
+
+    yarn test
+
 ## Libraries
 
 This Node project uses:
