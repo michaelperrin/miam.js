@@ -1,4 +1,5 @@
 import fs from 'fs';
+import downloadPicture from './downloadPicture.js';
 
 const saveToFilesystem = (basePath, data) => {
   const fileContent = JSON.stringify(data, null, 2);
@@ -15,6 +16,10 @@ const saveToFilesystem = (basePath, data) => {
       }
 
       console.log(`✅ Successfully saved recipe "${data.title}"`);
+    });
+
+    data.pictures.forEach((pictureData) => {
+      downloadPicture(pictureData.url, `${recipePath}/${pictureData.name}`, () => { });
     });
   });
 };

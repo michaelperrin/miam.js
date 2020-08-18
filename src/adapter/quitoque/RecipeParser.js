@@ -113,9 +113,14 @@ class RecipeParser {
   }
 
   getPictures(dom) {
+    const pictureUrl = dom('.recipe .recipe__img img')
+      .attr('src');
+
     return [
-      dom('.recipe .recipe__img img')
-        .attr('src')
+      {
+        name: pictureUrl.substring(pictureUrl.lastIndexOf('/') + 1),
+        url: pictureUrl,
+      }
     ];
   }
 
@@ -162,8 +167,6 @@ class RecipeParser {
 
     data.each((i, ldData) => {
       // Beware of https://github.com/cheeriojs/cheerio/issues/1050
-      // console.log(dom(ldData).html());
-      // console.log(dom(ldData).html().trim());
       const parsedLdData = JSON.parse(dom(ldData).html().trim());
 
       if (parsedLdData['@type'] === 'Recipe') {

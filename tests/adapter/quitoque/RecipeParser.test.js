@@ -78,6 +78,15 @@ describe('Recipe parser', () => {
     expect(recipeData.steps).toEqual(steps);
   });
 
+  it('extracts the picture', () => {
+    expect(recipeData.pictures).toEqual([
+      {
+        name: 'gratin-dendive-au-pain-depices-et-a-lorange-2.jpg',
+        url: 'https://s3.eu-central-1.amazonaws.com/media.quitoque.fr/recipe_w1536_h1024/recipes/images/gratin-dendive-au-pain-depices-et-a-lorange/gratin-dendive-au-pain-depices-et-a-lorange-2.jpg',
+      }
+    ]);
+  });
+
   it('extracts the cuisine type', () => {
     expect(recipeData.cuisine).toEqual('Cuisine française');
   });
