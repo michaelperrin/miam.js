@@ -22,6 +22,7 @@ class RecipeParser {
       title: this.getTitle(dom),
       ingredients: this.getIngredients(dom),
       steps: this.getSteps(dom),
+      pictures: this.getPictures(dom),
     };
   }
 
@@ -89,6 +90,13 @@ class RecipeParser {
     };
 
     return dom(textNodes[0]).text().trim();
+  }
+
+  getPictures(dom) {
+    return [
+      dom('.recipe .recipe__img img')
+        .attr('src')
+    ];
   }
 }
 
