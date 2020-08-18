@@ -27,6 +27,9 @@ class RecipeParser {
     return {
       slug: slugify(title, { lower: true }),
       title,
+      cuisine: this.getCuisine(dom),
+      category: this.getCategory(dom),
+      duration_times: this.getDurationTimes(),
       ingredients: this.getIngredients(dom),
       steps: this.getSteps(dom),
       pictures: this.getPictures(dom),
@@ -114,6 +117,62 @@ class RecipeParser {
       dom('.recipe .recipe__img img')
         .attr('src')
     ];
+  }
+
+  getCuisine(dom) {
+    const structuredData = this.getRecipeStructuredData(dom);
+
+    if (!structuredData) {
+      return null;
+    }
+
+    return structuredData['recipeCuisine'] || null;
+  }
+
+  getCategory(dom) {
+    const structuredData = this.getRecipeStructuredData(dom);
+
+    if (!structuredData) {
+      return null;
+    }
+
+    return structuredData['recipeCategory'] || null;
+  }
+
+  getDurationTimes(dom) {
+    const structuredData = this.getRecipeStructuredData(dom);
+
+    if (!structuredData) {
+      return null;
+    }
+
+    return {
+      preparation: structuredData['prepTime'] || null,
+      cooking: structuredData['cookTime'] || null,
+      total: structuredData['totalTime'] || null,
+    };
+  }
+
+  getRecipeStructuredData(dom) {
+    if (this.structuredData) {
+      return this.structuredData;
+    }
+
+    const data = dom('script[type="application/ld+json"]');
+
+    data.each((i, ldData) => {
+      // Beware of https://github.com/cheeriojs/cheerio/issues/1050
+      // console.log(dom(ldData).html());
+      // console.log(dom(ldData).html().trim());
+      const parsedLdData = JSON.parse(dom(ldData).html().trim());
+
+      if (parsedLdData['@type'] === 'Recipe') {
+        this.structuredData = parsedLdData;
+        return parsedLdData;
+      }
+    });
+
+    return this.structuredData || null;
   }
 }
 

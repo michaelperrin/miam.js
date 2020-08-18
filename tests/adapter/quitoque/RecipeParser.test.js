@@ -27,17 +27,14 @@ describe('Recipe parser', () => {
       },
       {
         name: "Lait demi-écrémé",
-        number: "",
         quantity: "300 mL"
       },
       {
         name: "Parmesan râpé au lait cru",
-        number: "",
         quantity: "30 g"
       },
       {
         name: "Roquette",
-        number: "",
         quantity: "50 g"
       },
       {
@@ -79,5 +76,21 @@ describe('Recipe parser', () => {
     ];
 
     expect(recipeData.steps).toEqual(steps);
+  });
+
+  it('extracts the cuisine type', () => {
+    expect(recipeData.cuisine).toEqual('Cuisine française');
+  });
+
+  it('extracts the category', () => {
+    expect(recipeData.category).toEqual('gratin');
+  });
+
+  it('extracts duration times', () => {
+    expect(recipeData.duration_times).toEqual({
+      preparation: 'PT20M',
+      cooking: 'PT30M',
+      total: 'PT50M',
+    });
   });
 });
