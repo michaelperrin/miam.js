@@ -16,7 +16,7 @@ class RecipeListParser {
     const dom = await this.getDom();
     const urls = new Set(); // Use of a Set to avoid duplicates
 
-    dom('.recipe-list.js-week').eq(0).find('.product-list a.product__title').each((i, e) => {
+    dom('.recipe-list.js-week').find('.product-list a.product__title').each((i, e) => {
       const url = `${BASE_URL}${dom(e).attr('href')}`;
       urls.add(url);
     });
