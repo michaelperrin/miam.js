@@ -2,13 +2,13 @@ import RecipeParser from '../../../src/adapter/quitoque/RecipeParser';
 
 describe('Recipe parser', () => {
   const parser = new RecipeParser();
-  let recipeData = parser.getDataFromFile(__dirname + '/recipe.html');;
+  let recipeData = parser.getDataFromFile(__dirname + '/recipe.html');
 
-  it('extracts the title', async () => {
+  it('extracts the title', () => {
     expect(recipeData.title).toBe('Courgettes à la béchamel et au jambon');
   });
 
-  it('extracts ingredients', async () => {
+  it('extracts ingredients', () => {
     const expectedIngredients = [
       {
         name: "Courgette",
@@ -47,7 +47,7 @@ describe('Recipe parser', () => {
     expect(recipeData.ingredients).toEqual(expectedIngredients);
   });
 
-  it('extracts cooking steps', async () => {
+  it('extracts cooking steps', () => {
     const steps = [
       {
         title: "Avant de commencer",

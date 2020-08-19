@@ -3,18 +3,19 @@ import cheerio from 'cheerio';
 import getRecipeSlug from './getRecipeSlug.js';
 
 const BASE_URL = 'https://www.quitoque.fr';
-const RECIPE_LIST_URL = BASE_URL + '/au-menu';
+const DEFAULT_RECIPE_LIST_URL = BASE_URL + '/au-menu';
 
 class RecipeListParser {
-  async getDom() {
-    const html = await axios.get(RECIPE_LIST_URL);
+  async getDomFromUrl(url) {
+    url = url || DEFAULT_RECIPE_LIST_URL;
+
+    const html = await axios.get(url);
     const dom = cheerio.load(html.data);
 
     return dom;
   }
 
-  async getRecipes() {
-    const dom = await this.getDom();
+  getRecipes(dom) {
     const urls = new Set();
     const recipes = [];
 
@@ -31,6 +32,12 @@ class RecipeListParser {
     });
 
     return recipes;
+  }
+
+  async getRecipesFromUrl(url = null) {
+    const dom = await this.getDomFromUrl(url);
+
+    return this.getRecipes(dom);
   }
 }
 
