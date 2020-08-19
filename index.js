@@ -1,18 +1,23 @@
 import RecipeListParser from './src/adapter/quitoque/RecipeListParser.js';
 import RecipeParser from './src/adapter/quitoque/RecipeParser.js';
 import saveToFilesystem from './src/writer/saveToFilesystem.js';
+import recipeExists from './src/writer/recipeExists.js';
+
+const basePath = 'recipes';
 
 const fetchRecipes = async () => {
+  // Retrieve list of recipes
   const recipeListParser = new RecipeListParser();
-  let urls = await recipeListParser.getUrls();
+  let recipes = await recipeListParser.getRecipes();
 
-const fetchRecipes = async () => {
-  let urls = await parser.getUrls();
+  // Filter out recipes that have already been persisted
+  recipes = recipes.filter((recipe) => !recipeExists(basePath, recipe.slug));
 
-  urls.forEach(async url => {
+  // Persist recipes that don't exist yet
+  recipes.forEach(async recipe => {
     const parser = new RecipeParser();
 
-    parser.getDataFromUrl(url)
+    parser.getDataFromUrl(recipe.url)
       .then((data) => { saveToFilesystem('recipes', data)});
   });
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import cheerio from 'cheerio';
+import getRecipeSlug from './getRecipeSlug.js';
 
 const BASE_URL = 'https://www.quitoque.fr';
 const RECIPE_LIST_URL = BASE_URL + '/au-menu';
@@ -12,16 +13,24 @@ class RecipeListParser {
     return dom;
   }
 
-  async getUrls() {
+  async getRecipes() {
     const dom = await this.getDom();
-    const urls = new Set(); // Use of a Set to avoid duplicates
+    const urls = new Set();
+    const recipes = [];
 
     dom('.recipe-list.js-week').find('.product-list a.product__title').each((i, e) => {
       const url = `${BASE_URL}${dom(e).attr('href')}`;
-      urls.add(url);
+      const title = dom(e).text().trim();
+      const slug = getRecipeSlug(title);
+
+      // Avoid duplicate URLs
+      if (!urls.has(url)) {
+        recipes.push({ url, title, slug });
+        urls.add(url);
+      }
     });
 
-    return Array.from(urls);
+    return recipes;
   }
 }
 

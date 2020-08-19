@@ -17,6 +17,7 @@ const downloadPicture = (url, filename, callback) => {
 
     file.on('finish', () => {
       file.close();
+      console.log(`🍤 Successfully downloaded picture`);
       callback();
     });
 

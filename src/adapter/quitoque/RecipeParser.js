@@ -1,7 +1,7 @@
 import axios from 'axios';
 import cheerio from 'cheerio';
 import fs from 'fs';
-import slugify from 'slugify';
+import getRecipeSlug from './getRecipeSlug.js';
 
 class RecipeParser {
   async getDataFromUrl(url) {
@@ -25,7 +25,7 @@ class RecipeParser {
     const title = this.getTitle(dom);
 
     return {
-      slug: slugify(title, { lower: true }),
+      slug: getRecipeSlug(title),
       title,
       cuisine: this.getCuisine(dom),
       category: this.getCategory(dom),

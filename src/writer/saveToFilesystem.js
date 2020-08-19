@@ -1,9 +1,10 @@
 import fs from 'fs';
 import downloadPicture from './downloadPicture.js';
+import getRecipePath from './getRecipePath.js';
 
 const saveToFilesystem = (basePath, data) => {
   const fileContent = JSON.stringify(data, null, 2);
-  const recipePath = `${basePath}/${data.slug}`;
+  const recipePath = getRecipePath(basePath, data.slug);
 
   fs.mkdir(recipePath, { recursive: true }, (err) => {
     if (err) {
