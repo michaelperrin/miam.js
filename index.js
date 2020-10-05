@@ -8,7 +8,7 @@ const basePath = 'recipes';
 const fetchRecipes = async () => {
   // Retrieve list of recipes
   const recipeListParser = new RecipeListParser();
-  let recipes = await recipeListParser.getRecipes();
+  let recipes = await recipeListParser.getRecipesFromUrl();
 
   // Filter out recipes that have already been persisted
   recipes = recipes.filter((recipe) => !recipeExists(basePath, recipe.slug));

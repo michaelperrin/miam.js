@@ -6,7 +6,7 @@ const downloadPicture = (url, filename, callback) => {
 
   file.on('error', (err) => { // Handle errors
     fs.unlink(filename); // Delete the file async
-    console.log(`❌ ${err.message}`)
+    console.error(`❌ ${err.message}`)
   });
 
   const request = http.get(url, (response) => {
