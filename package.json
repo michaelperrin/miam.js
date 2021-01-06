@@ -14,7 +14,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cheerio": "https://github.com/cheeriojs/cheerio.git#1.0.0",
     "puppeteer": "^3.0.4",
     "slugify": "^1.4.5"
